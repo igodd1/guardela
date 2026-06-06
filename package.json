@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && npx esbuild .output/server/index.mjs --bundle --format=esm --outfile=.output/public/_worker.js --platform=browser --conditions=workerd --external:node:*",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "pages:deploy": "npx wrangler pages deploy .output/public --project-name=guardela"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
