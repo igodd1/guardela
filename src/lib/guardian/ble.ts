@@ -7,7 +7,7 @@ export type BleEvent =
   | { type: "raw"; text: string };
 
 export interface BleSession {
-  device: BluetoothDevice;
+  device: any;
   disconnect: () => void;
   sendBuzzer: (on: boolean) => Promise<void>;
 }
@@ -26,7 +26,7 @@ export async function connectBle(
   if (!isBleSupported()) throw new Error("Web Bluetooth não disponível neste navegador.");
 
   const nav = navigator as Navigator & { bluetooth: any };
-  const device: BluetoothDevice = await nav.bluetooth.requestDevice({
+  const device: any = await nav.bluetooth.requestDevice({
     filters: [{ services: [cfg.serviceUuid] }],
     optionalServices: [cfg.serviceUuid],
   });
@@ -38,7 +38,7 @@ export async function connectBle(
 
   const decoder = new TextDecoder();
   txChar.addEventListener("characteristicvaluechanged", (ev: Event) => {
-    const value = (ev.target as BluetoothRemoteGATTCharacteristic).value;
+    const value = (ev.target as any).value as DataView | undefined;
     if (!value) return;
     const text = decoder.decode(value).trim();
     if (text === cfg.shortPressToken) handlers.onEvent({ type: "short_press" });
