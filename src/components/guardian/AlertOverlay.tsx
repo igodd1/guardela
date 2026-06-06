@@ -49,20 +49,6 @@ export function AlertOverlay() {
           Digite seu PIN para CANCELAR. Sem confirmação, o alerta será enviado.
         </p>
         <PinPad value={pin} onChange={setPin} onComplete={tryCancel} error={error} />
-        <Button
-          variant="destructive"
-          className="w-full"
-          onClick={async () => {
-            // force-send now
-            const { sendNow } = await import("@/lib/guardian/alerts");
-            void sendNow;
-            // simply let countdown elapse: use cancelPending impossible
-            // Quick way: shrink countdown by mutating expiry? We just no-op visual.
-          }}
-          style={{ display: "none" }}
-        >
-          Enviar agora
-        </Button>
       </div>
     </div>
   );
