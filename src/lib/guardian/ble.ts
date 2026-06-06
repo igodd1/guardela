@@ -58,7 +58,7 @@ export async function connectBle(
     disconnect: () => {
       try {
         device.gatt?.disconnect();
-      } catch {}
+      } catch { }
     },
     sendBuzzer: async (on: boolean) => {
       if (!rxChar) return;
