@@ -59,14 +59,10 @@ export function whatsappLink(phone: string, text: string): string {
 }
 
 export function dispatchWhatsApp(contacts: Contact[], text: string) {
-  // Open the first contact directly; queue the rest as new tabs.
+  // Abre em nova aba/janela para não matar o app
   if (contacts.length === 0) return;
-  contacts.forEach((c, i) => {
+  contacts.forEach((c) => {
     const url = whatsappLink(c.phone, text);
-    if (i === 0) {
-      window.location.href = url;
-    } else {
-      window.open(url, "_blank");
-    }
+    window.open(url, "_blank");
   });
 }
